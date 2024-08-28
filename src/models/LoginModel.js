@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 var validator = require("email-validator");
+var bcrypt = require('bcryptjs');
 
 const LoginSchema = new mongoose.Schema({
   email: { type: String, required: true },
@@ -19,9 +20,30 @@ class Login {
         this.valida()
         if(this.errors.length > 0){return}
 
+        await this.existeUsuario()
+
+        if(this.errors.length > 0){return}
+
+        //Criar um hash para a senha
+        var salt = bcrypt.genSaltSync(10)
+        this.body.senha = bcrypt.hashSync("B4c0/\/", salt);
+
          this.user = await loginModel.create(this.body)
     }
 
+    async existeUsuario(){
+      try{
+      const userEmail = await loginModel.findOne({ email: this.body.email });
+      console.log(userEmail)
+      if(userEmail && userEmail.email === this.body.email) {
+        this.errors.push("Já existe um usuario com esse email")
+        console.log(this.errors)
+      }
+      }catch(e){
+        console.log(e)
+      }
+
+    }
 
     valida(){
       this.cleanUp()
