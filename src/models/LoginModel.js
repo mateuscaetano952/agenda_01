@@ -31,6 +31,20 @@ class Login {
          this.user = await loginModel.create(this.body)
     }
 
+    async entra(){
+    
+        this.user = await loginModel.findOne({ email: this.body.email });
+        if(!this.user){ this.errors.push("Não existe usuario com esse email") 
+          return}
+
+        if(bcrypt.compareSync(this.body.senha, this.user.senha)){
+          return
+          if(!this.user){ this.errors.push("Senha incorreta")
+        }
+
+    }
+  }
+
     async existeUsuario(){
       try{
       const userEmail = await loginModel.findOne({ email: this.body.email });
