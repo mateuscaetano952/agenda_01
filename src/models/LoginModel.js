@@ -37,12 +37,10 @@ class Login {
         if(!this.user){ this.errors.push("Não existe usuario com esse email") 
           return}
 
-        if(bcrypt.compareSync(this.body.senha, this.user.senha)){
-          return
-          if(!this.user){ this.errors.push("Senha incorreta")
+        if(!bcrypt.compareSync(this.user.senha, this.body.senha)){
+        this.errors.push("Senha incorreta")
+            return
         }
-
-    }
   }
 
     async existeUsuario(){

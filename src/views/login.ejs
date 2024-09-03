@@ -4,12 +4,14 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-2">
+  
 
         </div>
-
+        
         <div class="col-lg-8 my-3">
             <h1 class="text-center">Login</h1>
             <p class="text-center lead">Faça seu login ou crie sua conta abaixo</p>   
+            <%- include('includes/messages'); %>
 
           <div class="row">
             <div class="col-lg">
@@ -32,7 +34,6 @@
             <div class="col-lg">
                 <h4>Crie uma conta</h4>
                 <p>Se você não tem uma conta prencha o formulario abaixo</p>
-                <%- include('includes/messages'); %>
                 <form method="POST" action="/login/cadastra">
                     <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                     <div class="mb-3">

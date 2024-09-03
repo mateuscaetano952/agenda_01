@@ -47,7 +47,7 @@ exports.entra = async function(req, res) {
      return
    } 
  
-   req.flash('sucess', "Usuario cadastro com sucesso")
+   req.flash('sucess', "Usuario entrou no sistema")
    req.session.save(function() {
      res.redirect('/login/index')
    })
