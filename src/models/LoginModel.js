@@ -26,7 +26,7 @@ class Login {
 
         //Criar um hash para a senha
         var salt = bcrypt.genSaltSync(10)
-        this.body.senha = bcrypt.hashSync("B4c0/\/", salt);
+        this.body.senha = bcrypt.hashSync(this.body.senha, salt);
 
          this.user = await loginModel.create(this.body)
     }
@@ -37,8 +37,10 @@ class Login {
         if(!this.user){ this.errors.push("Não existe usuario com esse email") 
           return}
 
-        if(!bcrypt.compareSync(this.user.senha, this.body.senha)){
-        this.errors.push("Senha incorreta")
+        console.log(bcrypt.compareSync(this.body.senha, this.user.senha))
+        console.log(this.user)  
+        if(!bcrypt.compareSync(this.body.senha, this.user.senha)){
+          this.errors.push("Senha incorreta")
             return
         }
   }
