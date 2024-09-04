@@ -19,10 +19,15 @@ exports.cadastra = async function(req, res) {
     return
   } 
 
+
+
   req.flash('sucess', "Usuario cadastro com sucesso")
+  req.session.user = login.user
   req.session.save(function() {
     res.redirect('/login/index')
   })
+
+
   
  } catch(e){
   console.log(e)
@@ -49,14 +54,18 @@ exports.entra = async function(req, res) {
  
    req.flash('sucess', "Usuario entrou no sistema")
    req.session.save(function() {
-     res.redirect('/login/index')
+     res.redirect('/')
    })
    
   } catch(e){
    console.log(e)
    res.render('404')
   }
- 
 
  
+ }
+
+ exports.sair = function(req, res){
+  req.session.destroy();
+  res.redirect('/login/index')
  }

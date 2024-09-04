@@ -9,10 +9,16 @@
           <li class="nav-item ">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
+          <% if (user) { %>
           <li class="nav-item ">
             <a class="nav-link active" aria-current="page" href="/login/index">Entra<a>
           </li>
-        
+          <% } else {%>
+            <li class="nav-item ">
+              <a class="nav-link active" aria-current="page" href="/login/sair">Sair<a>
+            </li>
+          <% } %>
+
         </ul>
        
       </div>

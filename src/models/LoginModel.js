@@ -41,6 +41,7 @@ class Login {
         console.log(this.user)  
         if(!bcrypt.compareSync(this.body.senha, this.user.senha)){
           this.errors.push("Senha incorreta")
+          this.user = null
             return
         }
   }

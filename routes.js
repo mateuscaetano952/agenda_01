@@ -10,6 +10,7 @@ route.get('/', homeController.paginaInicial);
 route.get('/login/index', loginController.paginaInicial)
 route.post('/login/cadastra', loginController.cadastra)
 route.post('/login/entra', loginController.entra)
+route.get('/login/sair', loginController.sair)
 
 
 
