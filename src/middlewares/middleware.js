@@ -5,9 +5,6 @@ exports.middlewareGlobal = (req, res, next) => {
   next();
 };
 
-exports.outroMiddleware = (req, res, next) => {
-  next();
-};
 
 exports.checkCsrfError = (err, req, res, next) => {
   if(err) {
@@ -17,5 +14,17 @@ exports.checkCsrfError = (err, req, res, next) => {
 
 exports.csrfMiddleware = (req, res, next) => {
   res.locals.csrfToken = req.csrfToken();
+  next();
+};
+
+exports.loginRequired = (req, res, next) => {
+  if(!res.locals.user){
+    req.flash('errors', 'Você deve estar logado')
+    req.session.save(function() {
+     res.redirect('/login/index')
+    
+    })
+    return 
+  }
   next();
 };

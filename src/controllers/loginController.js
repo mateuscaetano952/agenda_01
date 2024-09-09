@@ -53,6 +53,7 @@ exports.entra = async function(req, res) {
    } 
  
    req.flash('sucess', "Usuario entrou no sistema")
+   req.session.user = login.user
    req.session.save(function() {
      res.redirect('/')
    })
@@ -68,4 +69,5 @@ exports.entra = async function(req, res) {
  exports.sair = function(req, res){
   req.session.destroy();
   res.redirect('/login/index')
+  return
  }
