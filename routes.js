@@ -15,8 +15,8 @@ route.post('/login/entra', loginController.entra)
 route.get('/login/sair', loginController.sair)
 
 //Rotas contato
-route.get('/contato/index',loginRequired  ,contatoController.index)
-route.get('/contato/index',loginRequired  ,contatoController.register)
+route.get('/contato/index',loginRequired ,contatoController.index)
+route.post('/contato/register',loginRequired ,contatoController.register)
 
 
 
