@@ -6,13 +6,34 @@
         <div class="col-lg-2">
 
         </div>
-
         <div class="col-lg-8 my-3">
             <h1 class="text-center">contato</h1>
             <p class="text-center lead">Cria novo contato</p>   
             <%- include('includes/messages'); %>
             
-            <form method="POST" action="/contato/register">
+            <% if(contato){%>
+            <form method="POST" action="/contato/edit"> 
+            <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Nome</label>
+              <input value="<%= contato.nome %>" type="text" class="form-control" name="nome">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Sobrenome</label>
+                <input value="<%= contato.sobrenome %>" type="text" class="form-control" name="sobrenome">
+              </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input value="<%= contato.email %>" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Número</label>
+                <input value="<%= contato.telefone %>" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="telefone">
+              </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <% } else {%>  
+
+               <form method="POST" action="/contato/register">
                 <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Nome</label>
@@ -31,6 +52,8 @@
                     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="telefone">
                   </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+            <% } %>
+               
               </form>
         </div>
 

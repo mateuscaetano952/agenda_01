@@ -6,6 +6,7 @@ const ContatoSchema = new mongoose.Schema({
   sobrenome: { type: String },
   email: { type: String},
   telefone: { type: String},
+  criadoEm: { type: Date, default: Date.now},
 });
 
 const contatoModel = mongoose.model('Contato', ContatoSchema);
@@ -14,15 +15,26 @@ class Contato {
     constructor(body){
         this.body = body;
         this.errors = [];
-        this.user = null;
+        this.contato = null;
     }
 
    async register(){
         this.valida()
         if(this.errors.length > 0){return}
 
-         this.user = await contatoModel.create(this.body)
+         this.contato = await contatoModel.create(this.body)
     }
+
+
+   async edit(){
+    this.valida()
+    if(this.errors.length > 0){return}
+
+     this.contato = await contatoModel.updateOne(
+      { _id: this.contato._id },
+      { $set: { name: this.contato.nome,sobrenome: this.contato.sobrenome, email: this.contato.email,telefone: this.contato.telefone } }
+     )
+  }
 
     valida(){
       this.cleanUp()
@@ -50,6 +62,23 @@ class Contato {
         telefone:this.body.telefone
       }
     }
+
+   static async procurarId(UrlParams){
+    if(typeof UrlParams !== 'string') return
+      const contato = await contatoModel.findOne({_id: UrlParams}); 
+      return contato
+   }
+
+   static async listaContatos (){
+      const contatos = await contatoModel.find(); 
+      return contatos
+   }
+
+   static async delete(UrlParams){
+    if(typeof UrlParams !== 'string') return
+      const contato = await contatoModel.deleteOne({_id: UrlParams}); 
+      return contato
+   }
 }
 
 module.exports = Contato;

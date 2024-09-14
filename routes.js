@@ -17,7 +17,9 @@ route.get('/login/sair', loginController.sair)
 //Rotas contato
 route.get('/contato/index',loginRequired ,contatoController.index)
 route.post('/contato/register',loginRequired ,contatoController.register)
-
+route.get('/contato/index/:id',loginRequired ,contatoController.editIndex)
+route.post('/contato/edit',loginRequired ,contatoController.edit)
+route.get('/contato/delete/:id',loginRequired ,contatoController.delete)
 
 
 module.exports = route;
